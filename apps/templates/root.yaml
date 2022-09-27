@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     path: apps/
-    repoURL:  https://gitea.thrash.dev/jtmack/argo-kuc.git
+    repoURL: https://github.com/jtmack6/argo-kuc.git 
     targetRevision: HEAD
   syncPolicy:
     automated:
