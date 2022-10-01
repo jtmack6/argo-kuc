@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
   - git:
-      repoURL: https://github.com/jtmack6/argo-kuc.git
+      repoURL: https://github.com/jtmack6/argo-infra.git
       revision: HEAD
       files:
       - path: "overlay/datadog/**.yaml"
@@ -14,7 +14,7 @@ spec:
     metadata:
       name: datadog
     spec:
-      project: default 
+      project: argo-project
       source:
         repoURL: https://helm.datadoghq.com
         targetRevision: 3.1.2
