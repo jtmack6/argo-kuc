@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: datadog
+  name: datadog 
   namespace: argocd
 spec:
   generators:
@@ -17,13 +17,14 @@ spec:
       project: default 
       source:
         repoURL: https://helm.datadoghq.com
-        targetRevision: 3.1.2 
-        chart: datadog
+        targetRevision: 3.1.2
+        chart: datadog 
         helm:
-          values: |-
+          values: |
             {{values}}
           valueFiles:
             - values.yaml
       destination:
         server: 'https://kubernetes.default.svc'
         namespace: datadog
+
