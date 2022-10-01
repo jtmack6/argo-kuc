@@ -20,7 +20,7 @@ spec:
         targetRevision: 3.1.2 
         chart: datadog
         helm:
-          values: |
+          values: |-
             {{values}}
           valueFiles:
             - values.yaml
