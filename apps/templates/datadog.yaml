@@ -21,7 +21,23 @@ spec:
         chart: datadog 
         helm:
           values: |
-            {{values}}
+            commonLabels: { "team_name": "hardk8s" }
+            targetSystem: "linux"
+            datadog:
+              apiKeyExistingSecret: datadog-secret
+              appKeyExistingSecret: datadog-secret
+              clusterName: "hardk8s.grave.loco"
+              kubelet:
+                tlsVerify:  false
+              logLevel: INFO
+              processAgent:
+                enabled: true
+                processCollection: true
+              networkMonitoring:
+                enabled: true
+              podLabelsAsTags:
+                app: kube_app
+                release: helm_release
           valueFiles:
             - values.yaml
       destination:
