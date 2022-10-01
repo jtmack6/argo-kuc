@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: datadog
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/jtmack6/argo-kuc.git
+      revision: HEAD
+      files:
+      - path: "overlay/datadog/**.yaml"
+  template:
+    metadata:
+      name: datadog
+    spec:
+      project: default 
+      source:
+        repoURL: https://helm.datadoghq.com
+        targetRevision: latest 
+        chart: datadog
+        helm:
+          values: |
+            {{values}}
+          valueFiles:
+            - values.yaml
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: datadog
