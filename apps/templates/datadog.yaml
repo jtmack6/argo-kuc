@@ -1,46 +1,36 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
   name: datadog 
   namespace: argocd
 spec:
-  generators:
-  - git:
-      repoURL: https://github.com/jtmack6/argo-kuc.git
-      revision: HEAD
-      files:
-      - path: "overlay/datadog/**.yaml"
-  template:
-    metadata:
-      name: datadog
-    spec:
-      project: default 
-      source:
-        repoURL: https://helm.datadoghq.com
-        targetRevision: 3.1.2
-        chart: datadog 
-        helm:
-          values: |
-            commonLabels: { "team_name": "hardk8s" }
-            targetSystem: "linux"
-            datadog:
-              apiKeyExistingSecret: datadog-secret
-              appKeyExistingSecret: datadog-secret
-              clusterName: "hardk8s.grave.loco"
-              kubelet:
-                tlsVerify:  false
-              logLevel: INFO
-              processAgent:
-                enabled: true
-                processCollection: true
-              networkMonitoring:
-                enabled: true
-              podLabelsAsTags:
-                app: kube_app
-                release: helm_release
-          valueFiles:
-            - values.yaml
-      destination:
-        server: 'https://kubernetes.default.svc'
-        namespace: datadog
+  project: default 
+  source:
+    repoURL: https://helm.datadoghq.com
+    targetRevision: 3.1.2
+    chart: datadog 
+    helm:
+      values: |
+        commonLabels: { "team_name": "hardk8s" }
+        targetSystem: "linux"
+        datadog:
+          apiKeyExistingSecret: datadog-secret
+          appKeyExistingSecret: datadog-secret
+          clusterName: "hardk8s.grave.loco"
+          kubelet:
+            tlsVerify:  false
+          logLevel: INFO
+          processAgent:
+            enabled: true
+            processCollection: true
+          networkMonitoring:
+            enabled: true
+          podLabelsAsTags:
+            app: kube_app
+            release: helm_release
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: datadog
 
